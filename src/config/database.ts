@@ -1,7 +1,7 @@
-import { drizzle, NodePgDatabase } from 'drizzle-orm/node-postgres'
+import { drizzle } from 'drizzle-orm/node-postgres'
 import { migrate } from 'drizzle-orm/node-postgres/migrator'
 import pkg from 'pg'
-
+import * as schema from './schema/schema.ts'
 const { Client } = pkg
 
 const client = new Client({
@@ -9,7 +9,7 @@ const client = new Client({
 })
 
 client.connect()
-export const db: NodePgDatabase = drizzle(client)
+export const db = drizzle(client, { schema })
 
 export const MigrateDB = async () => {
   try {
