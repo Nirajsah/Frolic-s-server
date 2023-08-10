@@ -77,7 +77,7 @@ export const loginUser = async <
 
     if (User.password === password) {
       console.log('user logged In')
-      return User
+      return { username: User.username, email: User.email }
     } else {
       throw createError({
         errorCode: 403,

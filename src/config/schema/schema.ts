@@ -1,4 +1,3 @@
-import { relations } from 'drizzle-orm'
 import { pgTable, text, index, serial } from 'drizzle-orm/pg-core'
 
 export const users = pgTable(
