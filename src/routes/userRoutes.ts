@@ -16,7 +16,6 @@ declare module 'express-serve-static-core' {
 }
 
 router.get('/me', authMiddleware, (req: Request, res: Response) => {
-  console.log('Called')
   res.json({ data: req.user })
 })
 
@@ -49,12 +48,14 @@ router.post('/login', async (req: Request, res: Response) => {
   try {
     const data = await handleLogin(email, password)
     const { accessToken, refreshToken } = generateJWT(data) // Takes a user and generates a token
+    // Takes a user and generates a token
     res.cookie('Bearer', accessToken, {
       httpOnly: true,
       secure: true, // This ensures the cookie is only sent over HTTPS
       sameSite: 'strict', // This prevents cross-site request forgery (CSRF) attacks
       domain: 'localhost',
     })
+
     res.json({
       data,
       accessToken: accessToken,
